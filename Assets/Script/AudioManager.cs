@@ -54,6 +54,11 @@ public class AudioManager : MonoBehaviour
         sfxMuteButton.image.sprite = !sfxSource.mute ? stateOn : stateOff;
     }
 
+    public void PauseMusic()
+    {
+        musicSource.Pause();
+    }
+
     void Save()
     {
         PlayerPrefs.SetFloat("MusicVolume", musicSource.volume);
