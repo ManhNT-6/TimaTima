@@ -5,14 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PopupResult : MonoBehaviour
-{
-        [SerializeField] private CanvasGroup popupResult;
+{       
         [SerializeField] private Text resultText;
         private bool isCorrect;
-        private void Awake()
-        {
-                HidePopup();
-        }
 
         public void SendResultCorrect()
         {
@@ -28,21 +23,18 @@ public class PopupResult : MonoBehaviour
         
         public void ShowPopupResult()
         {
-                popupResult.gameObject.SetActive(true);
+                var mainMenu = FindObjectOfType<MainMenuCanvasManager>();
+                mainMenu.GoToOtherPageWithHisIndex(3);
                 resultText.text = isCorrect ? "Correct" : "Incorrect";
                 resultText.color = isCorrect ? Color.green : Color.red;
 
-                StartCoroutine(HidePopupCouroutine());
+                StartCoroutine(HidePopupCouroutine(mainMenu));
         }
 
-        IEnumerator HidePopupCouroutine()
+        IEnumerator HidePopupCouroutine(MainMenuCanvasManager mainMenu)
         {
                 yield return new WaitForSeconds(2f);
-                HidePopup();
+                mainMenu.GoToOtherPageWithHisIndex(2);
         }
         
-        private void HidePopup()
-        {
-                popupResult.gameObject.SetActive(false);
-        }
 }

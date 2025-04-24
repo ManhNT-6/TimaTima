@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MainMenuCanvasManager : MonoBehaviour
+public class MainMenuCanvasManager : MonoSingleton<MainMenuCanvasManager>
 {
     [SerializeField] private List<CanvasGroup> List_CanvasGroups;
 
@@ -47,5 +47,11 @@ public class MainMenuCanvasManager : MonoBehaviour
             }
         }
         ChangePage(List_CanvasGroups[index], canvasGroup);
+    }
+    
+    public void GoToOtherPageWithHisIndex(int index)
+    {
+        ChangePage(List_CanvasGroups[currentPage], List_CanvasGroups[index]);
+        currentPage = index;
     }
 }

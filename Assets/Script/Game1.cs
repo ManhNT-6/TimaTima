@@ -38,9 +38,9 @@ public class Game1 : MonoBehaviour
 
     public void NextLevel()
     {
-        Debug.Log($"Current Level is {level}");
         if (level == 1) InitLevel2();
-        else if (level == 2) OnChangeGame.Invoke();
+        else if (level == 2) InitLevel3();
+        else if (level == 3) ChangeGame2();
     }
     
     void InitLevel2()
@@ -52,13 +52,28 @@ public class Game1 : MonoBehaviour
         select3.image.sprite = sprites[3];
         audioSource.clip = audioClips[1];
     }
-    
+
+    void InitLevel3()
+    {
+        key = 2;
+        level = 3;
+        select1.image.sprite = sprites[0];
+        select2.image.sprite = sprites[2];
+        select3.image.sprite = sprites[3];
+        audioSource.clip = audioClips[1];
+    }
 
     public void CheckAnswer(int no)
     {   
         isCorrect = no == key ? true : false;
         if (isCorrect) OnCorrect.Invoke();
         else OnWrong.Invoke();
+    }
+
+    void ChangeGame2()
+    {
+        var mainMenu = FindObjectOfType<MainMenuCanvasManager>();
+        mainMenu.GoToOtherPageWithHisIndex(6);
     }
     
     public void PlaySound()
